@@ -1,0 +1,88 @@
+class BankAccount:
+
+    def __init__(self, name):  
+        self.name = name
+        self.balance = 0
+        self.transactions = []
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            self.transactions.append(f"Deposited  : +Rs.{amount}")
+            print(f"\n  Rs.{amount} deposited successfully.")
+        else:
+            print("\n  Invalid amount.")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("\n  Invalid amount.")
+        elif amount > self.balance:
+            print("\n  Insufficient balance.")
+        else:
+            self.balance -= amount
+            self.transactions.append(f"Withdrawn  : -Rs.{amount}")
+            print(f"\n  Rs.{amount} withdrawn successfully.")
+
+    def check_balance(self):
+        print(f"\n  Current Balance: Rs.{self.balance}")
+
+    def transaction_history(self):
+        print(f"\n  Transaction History for {self.name}:")
+        if len(self.transactions) == 0:
+            print("  No transactions yet.")
+        else:
+            for i, t in enumerate(self.transactions, 1):
+                print(f"  {i}. {t}")
+        print(f"  ----------------------------")
+        print(f"  Balance: Rs.{self.balance}")
+
+
+def main():
+    print("=" * 40)
+    print("       WELCOME TO BANK")
+    print("=" * 40)
+
+    name = input("Enter your name: ")
+    account = BankAccount(name)
+
+    print(f"\n  Hello, {account.name}! Account created.")
+
+    while True:
+        print("\n--- MENU ---")
+        print("1. Deposit Money")
+        print("2. Withdraw Money")
+        print("3. Check Balance")
+        print("4. Transaction History")
+        print("5. Exit")
+
+        choice = input("\nEnter choice (1-5): ")
+
+        if choice == "1":
+            try:
+                amount = float(input("Amount to deposit: Rs."))
+                account.deposit(amount)
+            except:
+                print("  Invalid input. Enter a number.")
+
+        elif choice == "2":
+            try:
+                amount = float(input("Amount to withdraw: Rs."))
+                account.withdraw(amount)
+            except:
+                print("  Invalid input. Enter a number.")
+
+        elif choice == "3":
+            account.check_balance()
+
+        elif choice == "4":
+            account.transaction_history()
+
+        elif choice == "5":
+            print(f"\n  Goodbye, {account.name}!")
+            break
+
+        else:
+            print("\n  Invalid choice. Try 1-5.")
+
+
+main()
